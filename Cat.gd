@@ -11,9 +11,18 @@ var travel_path
 var travel_path_idx
 var travel_speed = 32
 
+var gender
+
 func _ready():
-	assert(manager)
+	assert(manager && gender)
 	nav2d = manager.get_node("Navigation2D")
+
+	match gender:
+		"male":
+			$AnimatedSprite.modulate = Color(0x42abc7ff)
+		"female":
+			$AnimatedSprite.modulate = Color(0xf1707dff)
+
 	change_state("idle")
 
 func change_state(to):
@@ -24,6 +33,7 @@ func change_state(to):
 		"idle":
 			$AnimatedSprite.animation = "default"
 			idle_duration = 1.0 + 3.0 * randf()
+
 		"traveling":
 			travel_path = nav2d.get_simple_path(
 				global_position,

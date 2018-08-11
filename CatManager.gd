@@ -37,12 +37,16 @@ func spawn_cat_somewhere():
 	var cat = protocat.instance()
 	cat.global_position = rand_pt_in_navpoly()
 	cat.manager = self
+	if randf() < 0.5:
+		cat.gender = "male"
+	else:
+		cat.gender = "female"
 	add_child(cat)
 
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
-	for i in range(3):
+	for i in range(5):
 		spawn_cat_somewhere()
 
 #func _process(delta):
