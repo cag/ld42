@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cat-pickup.wav-3bf9d87ea5ec2d18dbc2896fdd00354f.sample"
+
+[deps]
+
+source_file="res://cat-pickup.wav"
+dest_files=[ "res://.import/cat-pickup.wav-3bf9d87ea5ec2d18dbc2896fdd00354f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

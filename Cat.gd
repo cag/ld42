@@ -18,6 +18,7 @@ var gender
 
 func _ready():
 	assert(manager && gender)
+	$AnimatedSprite.playing = true
 	nav2d = manager.get_node("Navigation2D")
 
 	match gender:
@@ -87,3 +88,10 @@ func _integrate_forces(pstate):
 			var nextpos = travel_path[travel_path_idx + 1]
 			if (nextpos - global_position).dot(nextpos - last_global_position) <= 0.0:
 				travel_path_idx += 1
+
+func _on_AnimatedSprite_frame_changed():
+	match state:
+		"traveling":
+			if $AnimatedSprite.frame == 1:
+				$AudioStreamPlayer2D.play()
+			
