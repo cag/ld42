@@ -131,4 +131,4 @@ func get_picked_up(_holder):
 
 func get_put_down():
 	holder = null
-	change_state([["idle"]])
+	change_state([["idle", 0.5], ["traveling"]])
