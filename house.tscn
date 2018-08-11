@@ -53,9 +53,9 @@ _sections_unfolded = [ "Cell" ]
 
 script = ExtResource( 2 )
 
-[node name="Navigation2D" type="Navigation2D" parent="." index="3"]
+[node name="Navigation2D" type="Navigation2D" parent="CatManager" index="0"]
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D" index="0"]
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="CatManager/Navigation2D" index="0"]
 
 navpoly = SubResource( 1 )
 enabled = true

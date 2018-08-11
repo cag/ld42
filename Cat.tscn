@@ -24,5 +24,6 @@ animations = [ {
 
 frames = SubResource( 1 )
 animation = "default"
+_sections_unfolded = [ "Transform" ]
 
 
