@@ -12,7 +12,7 @@ var idle_duration
 
 var travel_path
 var travel_path_idx
-var travel_force_mag = 320
+var travel_force_mag = 3200
 
 var gender
 
@@ -50,7 +50,7 @@ func change_state(to):
 func _physics_process(delta):
 	state_time += delta
 	last_global_position = global_position
-	applied_force = Vector2(0, 0)
+	applied_force = Vector2()
 	match state:
 		"idle":
 			if state_time >= idle_duration:
