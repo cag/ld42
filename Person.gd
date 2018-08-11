@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var movement_force_mag = 320000
+var movement_force_mag = 50000
 
 func _physics_process(delta):
 	applied_force = Vector2()
