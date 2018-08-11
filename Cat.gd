@@ -26,12 +26,21 @@ func _ready():
 		"female":
 			$AnimatedSprite.modulate = Color(0xf1707dff)
 
-	change_state("idle")
+	change_state([["idle"]])
 
 var checkin = false
 
-func change_state(to):
+func change_state(to_prob_map):
 	assert(manager && nav2d)
+	var picker = randf()
+	var probacc = 0.0
+	var to
+	for info in to_prob_map:
+		to = info[0]
+		if info.size() > 1:
+			probacc += info[1]
+			if picker < probacc:
+				break
 	state = to
 	state_time = 0
 	match to:
@@ -54,12 +63,18 @@ func _physics_process(delta):
 	match state:
 		"idle":
 			if state_time >= idle_duration:
-				change_state("traveling")
+				change_state([
+					["traveling", 0.5],
+					["idle"]
+				])
 
 		"traveling":
 			assert(travel_path)
 			if travel_path_idx >= travel_path.size() - 1:
-				change_state("idle")
+				change_state([
+					["traveling", 0.1],
+					["idle"]
+				])
 			else:
 				var nextpos = travel_path[travel_path_idx + 1]
 				var force = (nextpos - global_position).normalized() * travel_force_mag
