@@ -123,7 +123,6 @@ func _on_AnimatedSprite_frame_changed():
 		"traveling":
 			if $AnimatedSprite.frame == 1:
 				$AudioStreamPlayer2D.play()
-			
 
 func get_picked_up(_holder):
 	holder = _holder
@@ -132,3 +131,8 @@ func get_picked_up(_holder):
 func get_put_down():
 	holder = null
 	change_state([["idle", 0.5], ["traveling"]])
+
+func _on_Cat_body_entered(body):
+	if body.get_script() == self.get_script() and self.get_instance_id() < body.get_instance_id():
+		change_state([["idle"]])
+		body.change_state([["idle"]])

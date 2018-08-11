@@ -53,6 +53,7 @@ func _input(e):
 			$AudioStreamPlayer2.play()
 		elif held_obj:
 			held_obj.get_put_down()
+			$AudioStreamPlayer3.play()
 			held_obj = null
 
 func _on_Area2D_body_entered(body):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Person.gd" type="Script" id=1]
 [ext_resource path="res://person1.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://person3.png" type="Texture" id=4]
 [ext_resource path="res://step-04.wav" type="AudioStream" id=5]
 [ext_resource path="res://cat-pickup.wav" type="AudioStream" id=6]
+[ext_resource path="res://cat-putdown.wav" type="AudioStream" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -36,7 +37,12 @@ radius = 5.0
 audio_stream = ExtResource( 5 )
 random_pitch = 1.1
 
-[node name="Person" type="RigidBody2D"]
+[sub_resource type="AudioStreamRandomPitch" id=5]
+
+audio_stream = ExtResource( 6 )
+random_pitch = 1.1
+
+[node name="Person" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -98,8 +104,17 @@ bus = "Master"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." index="4"]
 
-stream = ExtResource( 6 )
+stream = SubResource( 5 )
 volume_db = -12.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 7 )
+volume_db = -24.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
