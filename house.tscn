@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://CatManager.gd" type="Script" id=2]
+[ext_resource path="res://Person.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -140,5 +141,7 @@ script = ExtResource( 2 )
 
 navpoly = SubResource( 5 )
 enabled = true
+
+[node name="Person" parent="." index="3" instance=ExtResource( 3 )]
 
 
