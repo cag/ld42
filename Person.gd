@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 var movement_force_mag = 50000
+var held_obj
 
 func _ready():
 	$AnimatedSprite.playing = true
@@ -39,3 +40,23 @@ func _on_AnimatedSprite_frame_changed():
 	if $AnimatedSprite.animation == "walk":
 		if $AnimatedSprite.frame % 2 == 0:
 			$AudioStreamPlayer.play()
+
+var bodies = {}
+
+func _input(e):
+	if e.is_action_pressed("ui_accept"):
+		if !held_obj and !bodies.empty():
+			var first_cat_id = bodies.keys()[0]
+			var first_cat = bodies[first_cat_id]
+			held_obj = first_cat
+			first_cat.get_picked_up(self)
+			$AudioStreamPlayer2.play()
+		elif held_obj:
+			held_obj.get_put_down()
+			held_obj = null
+
+func _on_Area2D_body_entered(body):
+	bodies[body.get_instance_id()] = body
+
+func _on_Area2D_body_exited(body):
+	bodies.erase(body.get_instance_id())

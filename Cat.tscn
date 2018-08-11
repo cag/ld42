@@ -30,10 +30,10 @@ radius = 5.0
 audio_stream = ExtResource( 5 )
 random_pitch = 1.1
 
-[node name="Cat" type="RigidBody2D"]
+[node name="Cat" type="RigidBody2D" index="0"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 3
 collision_mask = 1
 mode = 2
 mass = 5.0
@@ -51,7 +51,7 @@ linear_damp = 10.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Linear" ]
+_sections_unfolded = [ "Collision", "Linear" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 

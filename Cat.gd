@@ -4,6 +4,8 @@ var manager
 var nav2d
 
 var last_global_position
+var default_collision_layer
+var default_collision_mask
 
 var state = "idle"
 var state_time = 0
@@ -16,9 +18,15 @@ var travel_force_mag = 3200
 
 var gender
 
+var holder
+
 func _ready():
 	assert(manager && gender)
+
 	$AnimatedSprite.playing = true
+	default_collision_layer = collision_layer
+	default_collision_mask = collision_mask
+
 	nav2d = manager.get_node("Navigation2D")
 
 	match gender:
@@ -33,6 +41,7 @@ var checkin = false
 
 func change_state(to_prob_map):
 	assert(manager && nav2d)
+
 	var picker = randf()
 	var probacc = 0.0
 	var to
@@ -43,7 +52,10 @@ func change_state(to_prob_map):
 			if picker < probacc:
 				break
 	state = to
-	state_time = 0
+	state_time = 0.0
+
+	collision_layer = default_collision_layer
+	collision_mask = default_collision_mask
 	match to:
 		"idle":
 			$AnimatedSprite.animation = "default"
@@ -57,10 +69,23 @@ func change_state(to_prob_map):
 			$AnimatedSprite.animation = "walk"
 			travel_path_idx = 0
 
+		"pickedup":
+			$AnimatedSprite.animation = "default"
+			collision_layer = 0
+			collision_mask = 0
+
 func _physics_process(delta):
 	state_time += delta
 	last_global_position = global_position
 	applied_force = Vector2()
+
+	if state != "pickedup":
+		$AnimatedSprite.position.y = min(
+			$AnimatedSprite.position.y + 16 * delta, 0)
+	else:
+		$AnimatedSprite.position.y = max(
+			$AnimatedSprite.position.y - 16 * delta, -8)
+
 	match state:
 		"idle":
 			if state_time >= idle_duration:
@@ -80,7 +105,11 @@ func _physics_process(delta):
 				var nextpos = travel_path[travel_path_idx + 1]
 				var force = (nextpos - global_position).normalized() * travel_force_mag
 				$AnimatedSprite.flip_h = force.x < 0.0
-				add_force(Vector2(0, 0), force)
+				add_force(Vector2(), force)
+
+		"pickedup":
+			assert(holder)
+			add_force(Vector2(), 1000.0 * (holder.get_node("Area2D").global_position - global_position))
 
 func _integrate_forces(pstate):
 	match state:
@@ -95,3 +124,11 @@ func _on_AnimatedSprite_frame_changed():
 			if $AnimatedSprite.frame == 1:
 				$AudioStreamPlayer2D.play()
 			
+
+func get_picked_up(_holder):
+	holder = _holder
+	change_state([["pickedup"]])
+
+func get_put_down():
+	holder = null
+	change_state([["idle"]])
