@@ -1,6 +1,7 @@
 extends Node
 
 var protocat = preload("res://Cat.tscn")
+export(NodePath) var entities
 var navpoly
 var navbounds
 
@@ -41,7 +42,8 @@ func spawn_cat_somewhere():
 		cat.gender = "male"
 	else:
 		cat.gender = "female"
-	add_child(cat)
+	
+	get_node(entities).add_child(cat)
 
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly

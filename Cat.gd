@@ -87,8 +87,3 @@ func _integrate_forces(pstate):
 			var nextpos = travel_path[travel_path_idx + 1]
 			if (nextpos - global_position).dot(nextpos - last_global_position) <= 0.0:
 				travel_path_idx += 1
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
