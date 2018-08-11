@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 var manager
 var nav2d
@@ -9,7 +9,7 @@ var idle_duration
 
 var travel_path
 var travel_path_idx
-var travel_speed = 32
+var travel_force_mag = 32
 
 var gender
 
@@ -42,6 +42,13 @@ func change_state(to):
 			$AnimatedSprite.animation = "walk"
 			travel_path_idx = 0
 
+func _integrate_forces(pstate):
+	match state:
+		"traveling":
+			pass
+#			if (nextpos - global_position).dot(force) <= 0.0:
+#				travel_path_idx += 1
+
 func _physics_process(delta):
 	state_time += delta
 	match state:
@@ -55,11 +62,9 @@ func _physics_process(delta):
 				change_state("idle")
 			else:
 				var nextpos = travel_path[travel_path_idx + 1]
-				var vel = (nextpos - global_position).normalized() * travel_speed
-				$AnimatedSprite.flip_h = vel.x < 0.0
-				move_and_slide(vel)
-				if (nextpos - global_position).dot(vel) <= 0.0:
-					travel_path_idx += 1
+				var force = (nextpos - global_position).normalized() * travel_force_mag
+				$AnimatedSprite.flip_h = force.x < 0.0
+				add_force(Vector2(0, 0), force)
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

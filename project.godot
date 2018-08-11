@@ -20,6 +20,11 @@ window/size/width=320
 window/size/height=240
 window/size/resizable=false
 
+[physics]
+
+2d/default_gravity=0
+2d/default_gravity_vector=Vector2( 0, 0 )
+
 [rendering]
 
 quality/2d/use_pixel_snap=true

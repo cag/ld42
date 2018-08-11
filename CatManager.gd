@@ -46,7 +46,7 @@ func spawn_cat_somewhere():
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
-	for i in range(5):
+	for i in range(1):
 		spawn_cat_somewhere()
 
 #func _process(delta):
