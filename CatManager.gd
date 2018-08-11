@@ -42,7 +42,8 @@ func spawn_cat_somewhere():
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
-	spawn_cat_somewhere()
+	for i in range(3):
+		spawn_cat_somewhere()
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
