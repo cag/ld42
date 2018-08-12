@@ -72,6 +72,7 @@ func _physics_process(delta):
 		if cat_timer >= til_next_spawn:
 			cat_timer -= til_next_spawn
 			til_next_spawn = randf() * 0.07
-			var cat = spawn_cat_somewhere()
+			var entnode = get_node(entities)
+			var parent = entnode.get_child(randi() % entnode.get_child_count())
+			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()))
 			cat.get_node("AudioStreamPlayer2D2").play()
-		
