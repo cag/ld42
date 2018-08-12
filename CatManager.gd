@@ -1,5 +1,7 @@
 extends Node
 
+signal spawn
+
 var protocat = preload("res://Cat.tscn")
 export(NodePath) var entities
 export(NodePath) var debug_label
@@ -41,15 +43,18 @@ func rand_pt_in_navpoly():
 			# point is in the navigation polygon
 			return pt
 
-func spawn_cat_at(pos):
+func spawn_cat_at(pos, gender):
 	var cat = protocat.instance()
 	cat.global_position = pos
 	cat.manager = self
 
-	if randf() < 0.5:
-		cat.gender = "male"
+	if gender:
+		cat.gender = gender
 	else:
-		cat.gender = "female"
+		if randf() < 0.5:
+			cat.gender = "male"
+		else:
+			cat.gender = "female"
 
 	cat_count += 1
 	spawn_probe_counter += 1
@@ -60,10 +65,12 @@ func spawn_cat_at(pos):
 		get_node(debug_label).text = str(cat_count)
 
 	get_node(entities).add_child(cat)
+	cat.get_node("AudioStreamPlayer2D2").play()
+	emit_signal("spawn")
 	return cat
 
-func spawn_cat_somewhere():
-	return spawn_cat_at(rand_pt_in_navpoly())
+func spawn_cat_somewhere(gender):
+	return spawn_cat_at(rand_pt_in_navpoly(), gender)
 
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
@@ -80,7 +87,6 @@ func _physics_process(delta):
 			var entnode = get_node(entities)
 			var parent = entnode.get_child(randi() % entnode.get_child_count())
 			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()))
-			cat.get_node("AudioStreamPlayer2D2").play()
 	else:
 		spawn_probe_timer += delta
 		if spawn_probe_timer >= 1.0:

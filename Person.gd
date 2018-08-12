@@ -1,5 +1,9 @@
 extends RigidBody2D
 
+signal moving
+signal pickup
+signal putdown
+
 export(NodePath) var cat_manager_path
 onready var cat_manager = get_node(cat_manager_path)
 
@@ -23,6 +27,7 @@ func _physics_process(delta):
 		dir.y -= 1
 	
 	if dir != Vector2():
+		emit_signal("moving")
 		dir = dir.normalized()
 		add_force(Vector2(), dir * movement_force_mag)
 		
@@ -53,9 +58,11 @@ func _input(e):
 			var first_cat = bodies[first_cat_id]
 			held_obj = first_cat
 			first_cat.get_picked_up(self)
+			emit_signal("pickup")
 			$AudioStreamPlayer2.play()
 		elif held_obj:
 			held_obj.get_put_down()
+			emit_signal("putdown")
 			$AudioStreamPlayer3.play()
 			held_obj = null
 

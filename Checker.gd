@@ -1,5 +1,7 @@
 extends Node2D
 
+signal message_done
+
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
@@ -42,6 +44,7 @@ func _physics_process(delta):
 func _input(event):
 	if textbox.visible and event.is_action_pressed("ui_accept") and textbox.get_node("Label").percent_visible >= 1.0:
 		textbox.visible = false
+		emit_signal("message_done")
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

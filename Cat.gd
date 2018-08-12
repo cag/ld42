@@ -195,5 +195,4 @@ func _on_Cat_body_entered(body):
 			var contact_normal = (body.global_position - global_position).normalized()
 			apply_impulse(Vector2(), -1000.0 * contact_normal)
 			body.apply_impulse(Vector2(), 1000.0 * contact_normal)
-			manager.spawn_cat_at(contact_pos)
-			$AudioStreamPlayer2D2.play()
+			manager.spawn_cat_at(contact_pos, null)
