@@ -6,7 +6,8 @@ export(NodePath) var debug_label
 var navpoly
 var navbounds
 var cat_count = 0
-var fullcat = true
+var fullcat = false
+var spewcat = false
 var spawn_probe_counter = 0
 var spawn_probe_timer = 0.0
 var spawn_limit_rate = 10
@@ -53,7 +54,7 @@ func spawn_cat_at(pos):
 	cat_count += 1
 	spawn_probe_counter += 1
 	if spawn_probe_counter > spawn_limit_rate:
-		fullcat = false
+		spewcat = true
 
 	if debug_label:
 		get_node(debug_label).text = str(cat_count)
@@ -74,12 +75,7 @@ func _ready():
 var cat_timer = 0.0
 var til_next_spawn = randf() * 2.0 / spawn_limit_rate
 func _physics_process(delta):
-	if fullcat:
-		spawn_probe_timer += delta
-		if spawn_probe_timer >= 1.0:
-			spawn_probe_timer -= 1.0
-			spawn_probe_counter = 0
-	else:
+	if spewcat:
 		cat_timer += delta
 		if cat_timer >= til_next_spawn:
 			cat_timer -= til_next_spawn
@@ -88,3 +84,8 @@ func _physics_process(delta):
 			var parent = entnode.get_child(randi() % entnode.get_child_count())
 			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()))
 			cat.get_node("AudioStreamPlayer2D2").play()
+	else:
+		spawn_probe_timer += delta
+		if spawn_probe_timer >= 1.0:
+			spawn_probe_timer -= 1.0
+			spawn_probe_counter = 0
