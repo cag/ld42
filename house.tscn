@@ -146,6 +146,7 @@ textboxpath = NodePath("../../Textbox")
 
 [node name="DebugLabel" type="Label" parent="." index="4"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -246,7 +247,8 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "qewurio qweiourtyequirewq uerwquiy erash dsajk dfsahsadkf adjfks dfdsakj fdsanbxv znb nb nvxc req rewq teq reqw qwer qwer eqwr eqwr wetq eqwr teqtre reqw reqwrewq "
-autowrap = true
+align = 1
+valign = 1
 clip_text = true
 percent_visible = 1.0
 lines_skipped = 0
