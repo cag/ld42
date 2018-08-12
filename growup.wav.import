@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/growup.wav-78937d4d5e4cd9ca9bc248fb4d730ff4.sample"
+
+[deps]
+
+source_file="res://growup.wav"
+dest_files=[ "res://.import/growup.wav-78937d4d5e4cd9ca9bc248fb4d730ff4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

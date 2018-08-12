@@ -93,7 +93,12 @@ func _physics_process(delta):
 	applied_force = Vector2()
 
 	if spawn_timer > 0.0:
-		spawn_timer = max(spawn_timer - delta, 0.0)
+		if spawn_timer > 0.183:
+			spawn_timer = max(spawn_timer - delta, 0.0)
+			if spawn_timer <= 0.183:
+				$AudioStreamPlayer2D3.play()
+		else:
+			spawn_timer = max(spawn_timer - delta, 0.0)
 		var t1 = min(spawn_timer / spawn_duration, 1.0)
 
 		var t2 = 1.0 - t1
