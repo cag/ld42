@@ -4,7 +4,7 @@ var manager
 var nav2d
 
 var last_global_position
-var final_collider_radius = 5.0
+var final_collider_radius = 7.0
 
 var default_mass
 var default_collision_layer
