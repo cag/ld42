@@ -10,6 +10,7 @@ __meta__ = {
 
 [node name="empty bounds" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 16, 16, 16 )
@@ -65,6 +66,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="wall" type="Sprite" parent="." index="3"]
 
+editor/display_folded = true
 position = Vector2( 192, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
@@ -87,5 +89,62 @@ _sections_unfolded = [ "Transform" ]
 build_mode = 0
 polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="door lower" type="Sprite" parent="." index="4"]
+
+editor/display_folded = true
+position = Vector2( 0, 64 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 16 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="door lower" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="door lower/StaticBody2D" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="door upper" type="Sprite" parent="." index="5"]
+
+position = Vector2( 64, 64 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 16, 16, 16 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="door upper" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="door upper/StaticBody2D" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 
