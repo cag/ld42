@@ -13,7 +13,7 @@ vertices = PoolVector2Array( 104, 168, 40, 168, 40, 88, 104, 136, 104, 88, 104, 
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5 ), PoolIntArray( 3, 2, 5 ), PoolIntArray( 3, 5, 6, 7 ), PoolIntArray( 6, 8, 9, 10 ), PoolIntArray( 7, 6, 10 ), PoolIntArray( 7, 10, 11 ) ]
 outlines = [ PoolVector2Array( 40, 168, 40, 88, 104, 88, 104, 120, 216, 120, 216, 88, 280, 88, 280, 168, 216, 168, 216, 136, 104, 136, 104, 168 ) ]
 
-[node name="Node2D" type="Node2D" index="0"]
+[node name="Node2D" type="Node2D"]
 
 script = ExtResource( 1 )
 hints_path = NodePath("Hints")
@@ -22,6 +22,7 @@ person_path = NodePath("YSort/Person")
 cat_manager_path = NodePath("CatManager")
 countdown_path = NodePath("Countdown")
 countdown_time = 100.0
+cat_limit = 200
 
 [node name="ColorRect" type="ColorRect" parent="." index="0"]
 
@@ -107,13 +108,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "100"
+text = "0"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
 [node name="Countdown" type="Label" parent="." index="5"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -127,7 +129,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "30"
+text = "0"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
