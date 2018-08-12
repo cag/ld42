@@ -40,6 +40,9 @@ func _ready():
 
 	nav2d = manager.get_node("Navigation2D")
 
+	if !manager.fullcat:
+		spawn_duration = 1.0
+
 	spawn_timer = spawn_duration
 
 	change_state([["idle"]])
@@ -49,21 +52,24 @@ var checkin = false
 func change_state(to_prob_map):
 	assert(manager && nav2d && gender)
 
+	collision_layer = default_collision_layer
+	collision_mask = default_collision_mask
+
 	var picker = randf()
 	var probacc = 0.0
-	var to
 	for info in to_prob_map:
-		to = info[0]
+		state = info[0]
 		if info.size() > 1:
 			probacc += info[1]
 			if picker < probacc:
 				break
-	state = to
+
 	state_time = 0.0
 
-	collision_layer = default_collision_layer
-	collision_mask = default_collision_mask
-	match to:
+	if !manager.fullcat and state == "traveling":
+		state = "idle"
+
+	match state:
 		"idle":
 			$AnimatedSprite.animation = "default"
 			idle_duration = 1.0 + 3.0 * randf()
@@ -88,7 +94,7 @@ func _physics_process(delta):
 
 	if spawn_timer > 0.0:
 		spawn_timer = max(spawn_timer - delta, 0.0)
-		var t1 = spawn_timer / spawn_duration
+		var t1 = min(spawn_timer / spawn_duration, 1.0)
 
 		var t2 = 1.0 - t1
 		t2 *= t2
@@ -127,6 +133,9 @@ func _physics_process(delta):
 				])
 
 		"traveling":
+			if !manager.fullcat:
+				change_state([["idle"]])
+
 			assert(travel_path)
 			if travel_path_idx >= travel_path.size() - 1:
 				change_state([
@@ -166,6 +175,7 @@ func get_put_down():
 
 func _on_Cat_body_entered(body):
 	if (
+		manager.fullcat and
 		state != "pickedup" and
 		self.get_instance_id() < body.get_instance_id() and
 		get_script() == body.get_script()

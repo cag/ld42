@@ -52,17 +52,26 @@ func spawn_cat_at(pos):
 		get_node(debug_label).text = str(cat_count)
 
 	get_node(entities).add_child(cat)
+	return cat
 
 func spawn_cat_somewhere():
-	spawn_cat_at(rand_pt_in_navpoly())
+	return spawn_cat_at(rand_pt_in_navpoly())
 
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
+
 	for i in range(5):
 		spawn_cat_somewhere()
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+var cat_timer = 0.0
+var til_next_spawn = randf() * 0.07
+func _physics_process(delta):
+	if !fullcat:
+		cat_timer += delta
+		if cat_timer >= til_next_spawn:
+			cat_timer -= til_next_spawn
+			til_next_spawn = randf() * 0.07
+			var cat = spawn_cat_somewhere()
+			cat.get_node("AudioStreamPlayer2D2").play()
+		

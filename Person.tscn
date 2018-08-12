@@ -42,7 +42,7 @@ random_pitch = 1.1
 audio_stream = ExtResource( 6 )
 random_pitch = 1.1
 
-[node name="Person" type="RigidBody2D"]
+[node name="Person" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -105,7 +105,7 @@ bus = "Master"
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = SubResource( 5 )
-volume_db = -12.0
+volume_db = -24.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
