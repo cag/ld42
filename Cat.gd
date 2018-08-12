@@ -181,3 +181,4 @@ func _on_Cat_body_entered(body):
 			apply_impulse(Vector2(), -1000.0 * contact_normal)
 			body.apply_impulse(Vector2(), 1000.0 * contact_normal)
 			manager.spawn_cat_at(contact_pos)
+			$AudioStreamPlayer2D2.play()

@@ -14,11 +14,17 @@ config/name="ld42"
 run/main_scene="res://house.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ScreenScaler="*res://ScreenScaler.gd"
+
 [display]
 
 window/size/width=320
 window/size/height=240
-window/size/resizable=false
+window/size/test_width=640
+window/size/test_height=480
+window/stretch/mode="viewport"
 
 [input]
 
