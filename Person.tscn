@@ -64,6 +64,7 @@ angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Linear" ]
+cat_manager_path = null
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 

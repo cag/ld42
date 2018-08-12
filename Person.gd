@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+export(NodePath) var cat_manager_path
+onready var cat_manager = get_node(cat_manager_path)
+
 var movement_force_mag = 50000
 var held_obj
 
@@ -44,7 +47,7 @@ func _on_AnimatedSprite_frame_changed():
 var bodies = {}
 
 func _input(e):
-	if e.is_action_pressed("ui_accept"):
+	if cat_manager.fullcat and e.is_action_pressed("ui_accept"):
 		if !held_obj and !bodies.empty():
 			var first_cat_id = bodies.keys()[0]
 			var first_cat = bodies[first_cat_id]

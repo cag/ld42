@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://CatManager.gd" type="Script" id=2]
-[ext_resource path="res://Person.tscn" type="PackedScene" id=3]
+[ext_resource path="res://house.gd" type="Script" id=1]
+[ext_resource path="res://tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://CatManager.gd" type="Script" id=3]
+[ext_resource path="res://Person.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Checker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Checker.gd" type="Script" id=6]
 
 [sub_resource type="NavigationPolygon" id=1]
 
@@ -11,6 +14,8 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5 ), PoolIntArray( 
 outlines = [ PoolVector2Array( 40, 168, 40, 88, 104, 88, 104, 120, 216, 120, 216, 88, 280, 88, 280, 168, 216, 168, 216, 136, 104, 136, 104, 168 ) ]
 
 [node name="Node2D" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="." index="0"]
 
@@ -32,7 +37,7 @@ _sections_unfolded = [ "Rect" ]
 [node name="TileMap" type="TileMap" parent="." index="1"]
 
 mode = 0
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 32
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -53,9 +58,9 @@ _sections_unfolded = [ "Cell" ]
 [node name="CatManager" type="Node2D" parent="." index="2"]
 
 editor/display_folded = true
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 entities = NodePath("../YSort")
-debug_label = NodePath("../Label")
+debug_label = NodePath("../DebugLabel")
 
 [node name="Navigation2D" type="Navigation2D" parent="CatManager" index="0"]
 
@@ -68,14 +73,21 @@ enabled = true
 
 [node name="YSort" type="YSort" parent="." index="3"]
 
-editor/display_folded = true
 sort_enabled = true
 
-[node name="Person" parent="YSort" index="0" instance=ExtResource( 3 )]
+[node name="Person" parent="YSort" index="0" instance=ExtResource( 4 )]
 
 position = Vector2( 164, 124 )
+cat_manager_path = NodePath("../../CatManager")
 
-[node name="Label" type="Label" parent="." index="4"]
+[node name="Checker" parent="YSort" index="1" instance=ExtResource( 5 )]
+
+visible = false
+position = Vector2( 248, 80 )
+script = ExtResource( 6 )
+textboxpath = NodePath("../../Textbox")
+
+[node name="DebugLabel" type="Label" parent="." index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -92,5 +104,45 @@ size_flags_vertical = 4
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Textbox" type="Polygon2D" parent="." index="5"]
+
+visible = false
+position = Vector2( 8, 184 )
+polygon = PoolVector2Array( 248, -4, 244, -92, 260, -4, 308, -4, 308, 52, -4, 52, -4, -4 )
+uv = PoolVector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+
+[node name="Label" type="Label" parent="Textbox" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 304.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "qewurio qweiourtyequirewq uerwquiy erash dsajk dfsahsadkf adjfks dfdsakj fdsanbxv znb nb nvxc req rewq teq reqw qwer qwer eqwr eqwr wetq eqwr teqtre reqw reqwrewq "
+autowrap = true
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
 

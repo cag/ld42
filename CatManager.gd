@@ -69,9 +69,6 @@ func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
 
-	for i in range(5):
-		spawn_cat_somewhere()
-
 var cat_timer = 0.0
 var til_next_spawn = randf() * 2.0 / spawn_limit_rate
 func _physics_process(delta):
