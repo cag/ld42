@@ -2,8 +2,11 @@ extends Node
 
 var protocat = preload("res://Cat.tscn")
 export(NodePath) var entities
+export(NodePath) var debug_label
 var navpoly
 var navbounds
+var cat_count = 0
+var fullcat = true
 
 func calc_bounds(vertices):
 	var min_x = INF
@@ -38,11 +41,16 @@ func spawn_cat_at(pos):
 	var cat = protocat.instance()
 	cat.global_position = pos
 	cat.manager = self
+
 	if randf() < 0.5:
 		cat.gender = "male"
 	else:
 		cat.gender = "female"
-	
+
+	cat_count += 1
+	if debug_label:
+		get_node(debug_label).text = str(cat_count)
+
 	get_node(entities).add_child(cat)
 
 func spawn_cat_somewhere():

@@ -22,8 +22,8 @@ ScreenScaler="*res://ScreenScaler.gd"
 
 window/size/width=320
 window/size/height=240
-window/size/test_width=640
-window/size/test_height=480
+window/size/test_width=960
+window/size/test_height=720
 window/stretch/mode="viewport"
 
 [input]
