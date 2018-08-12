@@ -14,7 +14,7 @@ var state = "idle"
 var state_time = 0
 
 var spawn_timer
-var spawn_duration = 10.0
+var spawn_duration = 5.0
 
 var idle_duration
 

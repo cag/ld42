@@ -7,6 +7,9 @@ var navpoly
 var navbounds
 var cat_count = 0
 var fullcat = true
+var spawn_probe_counter = 0
+var spawn_probe_timer = 0.0
+var spawn_limit_rate = 10
 
 func calc_bounds(vertices):
 	var min_x = INF
@@ -48,6 +51,10 @@ func spawn_cat_at(pos):
 		cat.gender = "female"
 
 	cat_count += 1
+	spawn_probe_counter += 1
+	if spawn_probe_counter > spawn_limit_rate:
+		fullcat = false
+
 	if debug_label:
 		get_node(debug_label).text = str(cat_count)
 
@@ -65,13 +72,18 @@ func _ready():
 		spawn_cat_somewhere()
 
 var cat_timer = 0.0
-var til_next_spawn = randf() * 0.07
+var til_next_spawn = randf() * 2.0 / spawn_limit_rate
 func _physics_process(delta):
-	if !fullcat:
+	if fullcat:
+		spawn_probe_timer += delta
+		if spawn_probe_timer >= 1.0:
+			spawn_probe_timer -= 1.0
+			spawn_probe_counter = 0
+	else:
 		cat_timer += delta
 		if cat_timer >= til_next_spawn:
 			cat_timer -= til_next_spawn
-			til_next_spawn = randf() * 0.07
+			til_next_spawn = randf() * 2.0 / spawn_limit_rate
 			var entnode = get_node(entities)
 			var parent = entnode.get_child(randi() % entnode.get_child_count())
 			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()))
