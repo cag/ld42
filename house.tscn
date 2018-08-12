@@ -20,6 +20,8 @@ hints_path = NodePath("Hints")
 checker_path = NodePath("YSort/Checker")
 person_path = NodePath("YSort/Person")
 cat_manager_path = NodePath("CatManager")
+countdown_path = NodePath("Countdown")
+countdown_time = 100.0
 
 [node name="ColorRect" type="ColorRect" parent="." index="0"]
 
@@ -105,11 +107,33 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+text = "100"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Hints" type="Label" parent="." index="5"]
+[node name="Countdown" type="Label" parent="." index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 280.0
+margin_right = 320.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "30"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Hints" type="Label" parent="." index="6"]
 
 visible = false
 anchor_left = 0.0
@@ -137,7 +161,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Textbox" type="Polygon2D" parent="." index="6"]
+[node name="Textbox" type="Polygon2D" parent="." index="7"]
 
 visible = false
 position = Vector2( 8, 184 )

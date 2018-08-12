@@ -13,6 +13,9 @@ export(NodePath) var person_path
 onready var person = get_node(person_path)
 export(NodePath) var cat_manager_path
 onready var cat_manager = get_node(cat_manager_path)
+export(NodePath) var countdown_path
+onready var countdown = get_node(countdown_path)
+export var countdown_time = 0.0
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
@@ -63,6 +66,7 @@ func _ready():
 	
 	yield(get_tree().create_timer(1.0), "timeout")
 
+	cat_manager.fullcat = false
 	checker.enter()
 	yield(get_tree().create_timer(1.0), "timeout")
 	checker.say("hey, roomie, what's up")
@@ -75,6 +79,7 @@ func _ready():
 	yield(checker, "message_done")
 	yield(get_tree().create_timer(.5), "timeout")
 	checker.exit()
+	cat_manager.fullcat = true
 	yield(get_tree().create_timer(1.0), "timeout")
 
 #func _process(delta):
