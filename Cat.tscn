@@ -32,7 +32,7 @@ random_pitch = 1.1
 audio_stream = ExtResource( 6 )
 random_pitch = 1.1
 
-[node name="Cat" type="RigidBody2D" index="0"]
+[node name="Cat" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 3
