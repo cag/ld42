@@ -86,7 +86,7 @@ func _physics_process(delta):
 			til_next_spawn = randf() * 2.0 / spawn_limit_rate
 			var entnode = get_node(entities)
 			var parent = entnode.get_child(randi() % entnode.get_child_count())
-			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()))
+			var cat = spawn_cat_at(parent.global_position + 3.0 * Vector2(randf(), randf()), null)
 	else:
 		spawn_probe_timer += delta
 		if spawn_probe_timer >= 1.0:
