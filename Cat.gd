@@ -4,43 +4,50 @@ var manager
 var nav2d
 
 var last_global_position
+var final_collider_radius = 5.0
+
+var default_mass
 var default_collision_layer
 var default_collision_mask
 
 var state = "idle"
 var state_time = 0
 
+var spawn_timer
+var spawn_duration = 10.0
+
 var idle_duration
 
 var travel_path
 var travel_path_idx
-var travel_force_mag = 3200
+var travel_force_mag
+var final_travel_force_mag = 3200
 
 var gender
 
 var holder
 
 func _ready():
-	assert(manager && gender)
+	assert(manager)
 
 	$AnimatedSprite.playing = true
+	$CollisionShape2D.shape = CircleShape2D.new()
+	$CollisionShape2D.shape.radius = 0.5 * final_collider_radius
+
+	default_mass = mass
 	default_collision_layer = collision_layer
 	default_collision_mask = collision_mask
 
 	nav2d = manager.get_node("Navigation2D")
 
-	match gender:
-		"male":
-			$AnimatedSprite.modulate = Color(0x42abc7ff)
-		"female":
-			$AnimatedSprite.modulate = Color(0xf1707dff)
+	spawn_timer = spawn_duration
 
 	change_state([["idle"]])
 
 var checkin = false
 
 func change_state(to_prob_map):
-	assert(manager && nav2d)
+	assert(manager && nav2d && gender)
 
 	var picker = randf()
 	var probacc = 0.0
@@ -78,6 +85,31 @@ func _physics_process(delta):
 	state_time += delta
 	last_global_position = global_position
 	applied_force = Vector2()
+
+	if spawn_timer > 0.0:
+		spawn_timer = max(spawn_timer - delta, 0.0)
+		var t1 = spawn_timer / spawn_duration
+
+		var t2 = 1.0 - t1
+		t2 *= t2
+		t2 *= t2
+		t2 *= t2
+		t2 *= t2
+		t2 *= t2
+		t2 = 0.5 + 0.5 * t2
+
+		$CollisionShape2D.shape.radius = final_collider_radius * t2
+		$AnimatedSprite.scale = Vector2(t2, t2)
+		mass = default_mass * t2
+		travel_force_mag = final_travel_force_mag * (0.5 + 0.5 * t2)
+
+		match gender:
+			"male":
+				$AnimatedSprite.modulate = Color(0x42abc7ff).linear_interpolate(Color(0xffffffff), t1)
+			"female":
+				$AnimatedSprite.modulate = Color(0xf1707dff).linear_interpolate(Color(0xffffffff), t1)
+
+		
 
 	if state != "pickedup":
 		$AnimatedSprite.position.y = min(
@@ -133,6 +165,19 @@ func get_put_down():
 	change_state([["idle", 0.5], ["traveling"]])
 
 func _on_Cat_body_entered(body):
-	if body.get_script() == self.get_script() and self.get_instance_id() < body.get_instance_id():
+	if (
+		state != "pickedup" and
+		self.get_instance_id() < body.get_instance_id() and
+		get_script() == body.get_script()
+	):
 		change_state([["idle"]])
 		body.change_state([["idle"]])
+		if (
+			gender != body.gender and
+			spawn_timer <= 0 and body.spawn_timer <= 0
+		):
+			var contact_pos = 0.5 * (body.global_position + global_position)
+			var contact_normal = (body.global_position - global_position).normalized()
+			apply_impulse(Vector2(), -1000.0 * contact_normal)
+			body.apply_impulse(Vector2(), 1000.0 * contact_normal)
+			manager.spawn_cat_at(contact_pos)

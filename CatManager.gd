@@ -29,14 +29,14 @@ func rand_pt_in_navpoly():
 	var w = maxv.x - minv.x
 	var h = maxv.y - minv.y
 	while true:
-		var pt = Vector2(randf() * w, randf() * h)
+		var pt = minv + Vector2(randf() * w, randf() * h)
 		if pt == $Navigation2D.get_closest_point(pt):
 			# point is in the navigation polygon
 			return pt
 
-func spawn_cat_somewhere():
+func spawn_cat_at(pos):
 	var cat = protocat.instance()
-	cat.global_position = rand_pt_in_navpoly()
+	cat.global_position = pos
 	cat.manager = self
 	if randf() < 0.5:
 		cat.gender = "male"
@@ -45,10 +45,13 @@ func spawn_cat_somewhere():
 	
 	get_node(entities).add_child(cat)
 
+func spawn_cat_somewhere():
+	spawn_cat_at(rand_pt_in_navpoly())
+
 func _ready():
 	navpoly = $Navigation2D/NavigationPolygonInstance.navpoly
 	navbounds = calc_bounds(self.navpoly.get_vertices())
-	for i in range(20):
+	for i in range(5):
 		spawn_cat_somewhere()
 
 #func _process(delta):

@@ -8,44 +8,84 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
 
-[node name="carpet" type="Sprite" parent="." index="0"]
+[node name="empty bounds" type="Sprite" parent="." index="0"]
 
-position = Vector2( 8, 8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 16, 16, 16 )
+_sections_unfolded = [ "Region", "Transform", "Visibility" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="empty bounds" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="empty bounds/StaticBody2D" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+
+[node name="carpet" type="Sprite" parent="." index="1"]
+
+position = Vector2( 64, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 16, 16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="wall base" type="Sprite" parent="." index="1"]
+[node name="wall base" type="Sprite" parent="." index="2"]
 
-position = Vector2( 24, 8 )
+position = Vector2( 128, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 16, 0, 16, 16 )
 _sections_unfolded = [ "Region", "Transform" ]
 
-[node name="wall" type="Sprite" parent="." index="2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="wall base" index="0"]
 
-position = Vector2( 40, 8 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall base/StaticBody2D" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall" type="Sprite" parent="." index="3"]
+
+position = Vector2( 192, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 0, 16, 16 )
 _sections_unfolded = [ "Region", "Transform" ]
 
-[node name="shelf" type="Sprite" parent="." index="3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="wall" index="0"]
 
-position = Vector2( 56, 8 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 48, 0, 16, 16 )
-_sections_unfolded = [ "Region", "Transform" ]
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
 
-[node name="shelf end" type="Sprite" parent="." index="4"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="wall/StaticBody2D" index="0"]
 
-position = Vector2( 72, 8 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 0, 16, 16, 16 )
-_sections_unfolded = [ "Offset", "Region", "Transform" ]
+build_mode = 0
+polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+_sections_unfolded = [ "Transform" ]
 
 
