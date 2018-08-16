@@ -149,7 +149,7 @@ func _ready():
 			
 		yield(get_tree().create_timer(1.0), "timeout")
 	else:
-		checker.say("aw nuts i totally forgot th-WHAT THE DEVIL HAPPENED HERE")
+		checker.say("aw nuts i totally forgot th-\nWHAT THE DEVIL HAPPENED HERE")
 		yield(checker, "message_done")
 		checker.say("OUR HOUSE IS RUINED")
 		yield(checker, "message_done")

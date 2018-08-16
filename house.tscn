@@ -7,17 +7,17 @@
 [ext_resource path="res://Checker.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Checker.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 196, 72 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 48, 24 )
 
-[sub_resource type="NavigationPolygon" id=1]
+[sub_resource type="NavigationPolygon" id=3]
 
 vertices = PoolVector2Array( 104, 168, 40, 168, 40, 88, 104, 136, 104, 88, 104, 120, 216, 120, 216, 136, 216, 88, 280, 88, 280, 168, 216, 168 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5 ), PoolIntArray( 3, 2, 5 ), PoolIntArray( 3, 5, 6, 7 ), PoolIntArray( 6, 8, 9, 10 ), PoolIntArray( 7, 6, 10 ), PoolIntArray( 7, 10, 11 ) ]
@@ -85,32 +85,32 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="0"]
 
 position = Vector2( 160, 8 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="1"]
 
 position = Vector2( -164, 132 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="2"]
 
 position = Vector2( 164, 248 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="3"]
 
 position = Vector2( 484, 132 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="4"]
 
 position = Vector2( 160, 88 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMap/StaticBody2D" index="5"]
 
 position = Vector2( 160, 168 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CatManager" type="Node2D" parent="." index="2"]
 
@@ -125,7 +125,7 @@ editor/display_folded = true
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="CatManager/Navigation2D" index="0"]
 
-navpoly = SubResource( 1 )
+navpoly = SubResource( 3 )
 enabled = true
 
 [node name="YSort" type="YSort" parent="." index="3"]
